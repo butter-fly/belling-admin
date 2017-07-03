@@ -43,3 +43,28 @@
 有Tomcat 8+、 JDK8 + ；
 * 数据库支持：目前仅提供MySq 5.7；
 * 开发环境：Java、Eclipse Java EE 4.3、Maven 3.1、Git；
+
+5、演示配图
+
+![image](https://github.com/butter-fly/belling-admin/blob/master/src/main/webapp/peitu/1.png)
+
+![image](https://github.com/butter-fly/belling-admin/blob/master/src/main/webapp/peitu/2.png)
+
+![image](https://github.com/butter-fly/belling-admin/blob/master/src/main/webapp/peitu/3.png)
+
+![image](https://github.com/butter-fly/belling-admin/blob/master/src/main/webapp/peitu/4.png)
+
+![image](https://github.com/butter-fly/belling-admin/blob/master/src/main/webapp/peitu/5.png)
+
+![image](https://github.com/butter-fly/belling-admin/blob/master/src/main/webapp/peitu/6.png)
+
+![image](https://github.com/butter-fly/belling-admin/blob/master/src/main/webapp/peitu/7.png)
+
+![image](https://github.com/butter-fly/belling-admin/blob/master/src/main/webapp/peitu/8.png)
+
+![image](https://github.com/butter-fly/belling-admin/blob/master/src/main/webapp/peitu/9.png)
+
+![image](https://github.com/butter-fly/belling-admin/blob/master/src/main/webapp/peitu/10.png)
+
+![image](https://github.com/butter-fly/belling-admin/blob/master/src/main/webapp/peitu/11.png)
+
