@@ -64,7 +64,4 @@
 
 ![image](https://github.com/butter-fly/belling-admin/blob/master/src/main/webapp/peitu/9.png)
 
-![image](https://github.com/butter-fly/belling-admin/blob/master/src/main/webapp/peitu/10.png)
-
-![image](https://github.com/butter-fly/belling-admin/blob/master/src/main/webapp/peitu/11.png)
 
