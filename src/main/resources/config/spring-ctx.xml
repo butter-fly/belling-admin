@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	<!-- 启用Spring基于annotation的DI,激活 @Required @Autowired, @PostConstruct, @PreDestroy and @Resource 等标注 -->
+	<context:annotation-config />
+	
+	<!-- Aop切面,基于类的代理将起作用--> 
+	<aop:aspectj-autoproxy proxy-target-class="true"/>
+	
+	<!-- DispatcherServlet上下文， 忽略@Controller类型的bean， 只管理其他型的bean, 如@Service -->
+	<context:component-scan base-package="com.belling">
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
+
+	<bean class="com.belling.base.config.ConfigUtils">
+		<property name="fileEncoding" value="UTF-8" />
+		<property name="locations">
+			<list>
+				<!--数据库参数配置 -->
+				<value>classpath:jdbc.properties</value>
+				<!--当前应用参数配置 -->
+				<value>classpath:conf.properties</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- 引入Mybatis及数据库相关 -->
+	<import resource="spring-mybatis.xml" />
+	
+	<!-- 引入Shiro权限认证相关 -->
+	<import resource="spring-shiro.xml" />
+	
+	<!-- 引入Ehcache相关 -->
+	<import resource="spring-ehcache.xml" />
+</beans>

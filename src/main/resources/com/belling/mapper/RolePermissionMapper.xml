@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.belling.admin.mapper.RolePermissionMapper">
+	<insert id="insert" parameterType="RolePermission" statementType="PREPARED" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO SYS_RE_ROLE_PERMISSION(
+			roleId,
+			permissionId
+		) 
+		VALUES (
+			#{roleId},
+			#{permissionId}
+		)
+	</insert>
+
+	<select id="findByRoleId" parameterType="map" resultType="RolePermission">   
+		SELECT a.permissionId
+			FROM SYS_PERMISSION p
+			INNER JOIN  SYS_RE_ROLE_PERMISSION a ON p.id = a.permissionId AND p.isEnable = 1
+			WHERE 1 = 1
+			<if test="roleId != null and roleId != '' ">
+			AND a.roleId = #{roleId} 
+		</if>
+	</select>
+	
+	<delete id="deleteByPermissionIds" parameterType="map" statementType="PREPARED">
+		DELETE FROM SYS_RE_ROLE_PERMISSION
+		WHERE 1 = 1
+		<if test="idList != null">
+			AND permissionId in <foreach collection="idList" item="item" open="(" separator="," close=")">#{item}</foreach>
+		</if>
+	</delete>
+	
+	<delete id="deleteByRoleIds" parameterType="map" statementType="PREPARED">
+		DELETE FROM SYS_RE_ROLE_PERMISSION
+		WHERE 1 = 1
+		<if test="idList != null">
+			AND roleId in <foreach collection="idList" item="item" open="(" separator="," close=")">#{item}</foreach>
+		</if>
+	</delete>
+</mapper>

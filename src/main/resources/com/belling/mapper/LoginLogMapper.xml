@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.belling.admin.mapper.LoginLogMapper">
+	<insert id="insert" parameterType="LoginLog" statementType="PREPARED" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO sys_login_log(
+			userId,
+			loginTime,
+			loginIp,
+			loginType,
+			loginDesc
+		) 
+		VALUES (
+			#{userId},
+			#{loginTime},
+			#{loginIp},
+			#{loginType},
+			#{loginDesc}
+		)
+	</insert>
+	
+	<!-- 分页查询 -->
+	<select id="findPaginationByTime" parameterType="map" resultType="LoginLog">   
+		SELECT * 
+		FROM sys_login_log a
+		WHERE 1 = 1
+		<if test="userId != null and userId != '' ">
+			AND a.userId = #{userId}
+		 </if>
+		<if test="startTime != null and endTime != null">
+			and (a.loginTime between #{startTime} and #{endTime}) 
+		</if>
+		<if test="startTime != null and endTime == null">
+			and a.loginTime &gt;= #{startTime}
+		</if>
+		<if test="startTime == null and endTime != null">
+			and a.loginTime &lt;= #{endTime}
+		</if>
+		ORDER BY a.loginTime DESC 
+	</select>
+	
+	<!-- 删除日志 -->
+	<delete id="deleteByTime" parameterType="map" statementType="PREPARED">
+		DELETE FROM sys_login_log
+		<choose>
+			<when test="startTime == null">
+				WHERE 1 != 1
+			</when>
+			<when test="startTime != null">
+				WHERE loginTime &gt;= #{startTime}
+			</when>
+		</choose>
+	</delete>
+</mapper>

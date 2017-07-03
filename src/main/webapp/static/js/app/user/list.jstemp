@@ -1,0 +1,90 @@
+/**
+ * 
+ */
+// 加载所需模块
+layui.use(['form','layer'], function(){
+	
+	//  操作对象
+	var form = layui.form(),layer = layui.layer , $ = layui.jquery;
+	
+	// 初始化表格
+	$('#dataTable').DataTable({
+		"displayLength": 1, // 每页显示条数
+		"rowId": 'id', // row加id
+		"order": [[ 1, "desc" ]],               // 排序
+		"searching": false,                     // 本地搜索
+		"bDestroy" : true,//不加这个在第二次展示此表格时报错
+		"bLengthChange": false, //改变每页显示数据数量
+		"info": true,                           // 控制是否显示表格左下角的信息
+		"bPaginate" : true,
+		"stripeClasses": ["odd", "even"],       // 为奇偶行加上样式，兼容不支持CSS伪类的场合
+		"aoColumnDefs": [{                      // 指定列不参与排序
+		    "orderable": false,
+		    "aTargets": [0,6]                   // 对应你的表格的列数
+		}],
+		"language" : {
+			"sProcessing" : "正在获取数据，请稍后...",
+			"sLengthMenu" : "",
+			"zeroRecords" : "没有找到数据",
+			"info" : "第 _PAGE_ 页 ( 总共 _PAGES_ 页 )",
+			"infoEmpty" : "暂无数据",
+			"sLoadingRecords" : "加载中...",
+			"sInfoThousands" : ",",
+			"oPaginate" : {
+				"sFirst" : "首页",
+				"sPrevious" : "上一页",
+				"sNext" : "下一页",
+				"sLast" : "末页"
+			}
+		},
+		"pagingType": "full_numbers",         // 分页样式 simple,simple_numbers,full,full_numbers
+		"ajax": {
+				"url": WEB_ROOT + "/admin/user/page",
+				"type": "POST",
+				"data" : function(d) {
+					d.kw = $.trim($("#keyword").val());
+				}
+		},
+		"sServerMethod" : "POST",               // POST
+		"deferRender": true,                    // 当处理大数据时，延迟渲染数据，有效提高Datatables处理能力
+		"columns": [                            // 自定义数据列
+			{data:function(obj){                // 后台需要返回[data=>['id'=>1,ip=>0.0.0.0]]这样的数据
+				return '<input type="checkbox" class="my-checkbox" lay-filter="oneChoose" data-id="'+ obj.id + '"/>';
+			}},
+			{data: 'account'},
+			{data: 'isEnable'},
+			{data: 'lastLoginTime'},
+			{data: 'lastLoginIp'},
+			{data: 'createTime'},
+			{data: function(obj){
+			    return  '<a class="layui-btn layui-btn-small btn-edit" data-id="'+obj.id+'">查看</a>' +
+			            '<a class="layui-btn layui-btn-small layui-btn-normal btn-edit" data-id="'+obj.id+'">编辑</a>' +
+			            '<a class="layui-btn layui-btn-small layui-btn-danger btn-edit" data-id="'+obj.id+'">删除</a>';
+			},width:'155'}
+		],
+		"stateSaveParams": function () {           // 初始化完成调用事件
+			// 重新渲染form checkbox 如果你要使用layui的复选框样式打开这个
+			form.render('checkbox');
+		},
+		"fnRowCallback" : function(row, data, index) {
+			return row;
+		},
+		"initComplete": function () {
+		
+		},
+		"footerCallback": function (row, data, start, end, display ) {
+		
+		}
+	});
+	
+
+	//  获取ids
+	$(document).on('click','#btn-delete-all', function(){
+		var list = null;
+		if(list == null || list == ''){
+			layer.msg('未选择');
+		} else {
+			layer.msg(list);
+		}
+	});
+});
