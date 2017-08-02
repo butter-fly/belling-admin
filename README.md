@@ -41,7 +41,7 @@
 
 * 服务器中间件：在Java EE 5规范（Servlet 2.5、JSP 2.1）下开发，支持应用服务器中间件
 有Tomcat 8+、 JDK8 + ；
-* 数据库支持：目前仅提供MySq 5.7；
+* 数据库支持：MySq 5.6 +；
 * 开发环境：Java、Eclipse Java EE 4.3、Maven 3.1、Git；
 
 5、演示配图
